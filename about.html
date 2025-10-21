@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <title>About Us</title>
+    <style>
+        :root {
+            --primary-color: orangered;
+            --secondary-color: aliceblue;
+            --dark-color: rgb(5, 5, 5);
+            --light-color: #fefdfd;
+            --accent-color: #270801;
+            --transition-speed: 0.3s;
+            --primary-2-color: #ff8c00;
+            --secondary-2-color: #007bff;
+            --background-light: #fff5e6;
+            --text-color: #343a40;
+            --border-color: #f0ad4e;
+            --text-on-primary: white;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: transparent;
+            color: aliceblue;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
+            transition: all var(--transition-speed) ease;
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 5%;
+            background: rgba(50, 49, 49, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right var(--accent-color));
+            /*-webkit-background-clip: text;*/
+            -webkit-text-fill-color: var(--secondary-color);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .span-tariff {
+            background-color: orangered;
+            color: var(--secondary-color);
+            text-align: center;
+            margin: 10px;
+            padding: 5px;
+            width: 50px;
+            height: 50px;
+            border: 4px solid aliceblue;
+        }
+
+        .span-tariff:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: 4px solid var(--primary-color);
+        }
+
+        img {
+            width: 100px;
+            height: auto;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links li a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            position: relative;
+            transition: all var(--transition-speed) ease;
+            border-radius: 4px;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width var(--transition-speed) ease;
+
+        }
+
+        .nav-links li a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links li a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-links li a.active::after {
+            width: 100%;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 5px;
+            transition: all 1.3s ease;
+            border-radius: 3px;
+
+        }
+
+        /* mobile style responsiveness*/
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: 0;
+                top: 0;
+                background: rgb(255, 185, 159);
+                width: 100%;
+                height: 100vh;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in-out;
+                backdrop-filter: blur(10px);
+                gap: 2rem;
+            }
+
+            .nav-links li {
+                opacity: 10px;
+            }
+
+            .burger {
+                display: block;
+            }
+        }
+
+        /*Active state*/
+        .nav-active {
+            transform: translateX(0%);
+
+        }
+
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+            background: var(--secondary-color);
+        }
+
+        .toggle .line2 {
+            opacity: 0;
+        }
+
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+            background: var(--secondary-color);
+        }
+
+        /*Animations*/
+        @keyframes navLinksFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /*content to demonstrate scrolling*/
+        .content {
+            margin-top: 80px;
+            padding: 2rem;
+            height: 200vh;
+
+        }
+
+
+ /* Hero Section Styling */
+        .hero-section {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: url('https://t3.ftcdn.net/jpg/03/60/27/58/240_F_360275851_denhJnBhRpCtkkBWkkzYN6s3P54HPZts.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center center;
+            position: relative;
+            overflow: hidden;
+
+        }
+
+        /* Gradient Overlay (Default: Desktop Left-to-Right) */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right,
+                rgba(43, 43, 61, 0.95) 0%,
+                rgba(39, 39, 60, 0.95) 50%,
+                rgba(30, 30, 50, 0.0) 50%,
+                rgba(107, 107, 138, 0) 100%
+            );
+            z-index: 1;
+        
+        }
+
+        /* Inner container to manage the split layout */
+        .hero-content-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row; /* Default: Side-by-side */
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Left Side: Text Content (Desktop) */
+        .content-left {
+            width: 50%;
+            min-height: 100%;
+            padding: 4rem;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; /* Left aligned */
+            text-align: left;
+            box-sizing: border-box;
+        }
+
+        .content-left h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            margin-top: 60px;
+            color: var(--primary-color);
+        }
+
+        .content-left p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            max-width: 500px;
+        }
+
+        /* Call to Action Button */
+        .cta-button {
+            padding: 0.75rem 1.5rem;
+            background-color: #ff5722;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #f0ad4e;
+        }
+
+        /* Right Side: Spacer (Desktop) */
+        .content-right-spacer {
+            width: 50%;
+            min-height: 100%;
+        }
+
+        /* ================================================= */
+        /* RESPONSIVE REFINEMENTS (Mobile/Tablet < 768px) */
+        /* ================================================= */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 90vh;
+                /* PUSH CONTENT TO BOTTOM for better mobile hero layout */
+                align-items: flex-end; 
+                padding-bottom: 2rem;
+            }
+
+            .hero-content-wrapper {
+                flex-direction: column; /* Stack content */
+                height: auto; /* Allow wrapper to shrink to content size */
+            }
+
+            /* REFINED MOBILE GRADIENT: Dark from bottom-up */
+            .hero-section::before {
+                background: linear-gradient(to top, 
+                    rgba(41, 41, 61, 0.95) 0%, /* Solid at bottom */
+                    rgba(28, 28, 42, 0.7) 35%,
+                    rgba(17, 17, 26, 0) 100% /* Fade to top */
+                );
+            }
+
+            .content-left {
+                width: 100%;
+                /* 1. ADD TOP PADDING FOR NAV-BAR CLEARANCE (simulated) */
+                padding-top: 60px; 
+                
+                /* Reset alignment for readability: Text is left-aligned, but the block itself is centered */
+                align-items: center; 
+                text-align: center;
+                
+                /* Adjust padding: use generous horizontal padding (20px) */
+                padding: 1rem 20px;
+                box-sizing: border-box;
+                min-height: 0;
+            }
+
+            .content-left h1 {
+                font-size: 2.2rem; /* Reduced font size for mobile */
+            }
+
+            .content-left p {
+                font-size: 1rem;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .cta-button {
+                /* 2. CENTER BUTTON (within the flex container) */
+                margin: 10px auto 0 20px; /* Top margin, auto right, 20px left to align with text */
+                
+                /* 3. ENSURE IT DOESN'T TOUCH THE EDGES */
+                width: calc(100% - 40px); /* Total width minus padding on both sides */
+                max-width: 300px; 
+            }
+
+            .content-right-spacer {
+                /* This is hidden on mobile in this bottom-aligned layout, as the content sits on top of the image area */
+                display: none;
+            }
+        }
+        
+        /* Further refinement for very narrow phones */
+        @media (max-width: 768px) {
+            .content-left h1 {
+                font-size: 1.8rem;
+            }
+            .content-left p {
+                font-size: 0.9rem;
+            }
+            .content-left {
+                padding: 1rem 15px; /* Tighter padding for very small screens */
+            }
+            .cta-button {
+                margin: 10px auto 0 15px; 
+                width: calc(100% - 30px);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Base styles for the dark green section */
+        .dark-green-section {
+            background-color: var(--light-color);
+            /* A deep, dark green color */
+            color: var(--primary-color);
+            /* White text for contrast */
+            padding: 4rem 2rem;
+            /* Generous padding on all sides */
+            text-align: center;
+            /* Center the text content */
+            margin: 0;
+            /* Remove default margins */
+        }
+
+        /* Styling for the H1 - using 'rem' for scaling */
+        .dark-green-section h1 {
+            font-size: 3rem;
+            /* Base size for H1 */
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        /* Styling for the Paragraph - using 'rem' for scaling */
+        .dark-green-section p {
+            font-size: 1.25rem;
+            /* Base size for paragraph */
+            max-width: 800px;
+            /* Limit paragraph width for readability */
+            margin-left: auto;
+            /* Center the paragraph block */
+            margin-right: auto;
+            /* Center the paragraph block */
+            line-height: 1.6;
+        }
+
+        /* Media Query for responsiveness:
+   Adjust font sizes for smaller screens (less than 768px wide)
+*/
+        @media (max-width: 768px) {
+            .dark-green-section {
+                padding: 3rem 1rem;
+                /* Slightly less padding on smaller screens */
+            }
+
+            /* Reduce H1 size on small screens */
+            .dark-green-section h1 {
+                font-size: 2rem;
+            }
+
+            /* Reduce Paragraph size on small screens */
+            .dark-green-section p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            margin-left: 30px;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-col p {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: white;
+            opacity: 0.8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            padding-left: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+
+        }
+
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--accent-color);
+        }
+
+        .footer-bottom p {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="emo.jpeg.png" alt="">
+        </div>
+        <ul class="nav-links">
+            <li><a href="homepage.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="homepage.html">Testimonies</a></li>
+            <li><a href="our-work.html">Our work</a></li>
+            <li><a href="Our-team.html">Our Team</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="donate.html"><span class="span-tariff">DONATE</span></a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+  
+
+
+
+    <section class="hero-section">
+        <div class="hero-content-wrapper">
+            <div class="content-left">
+                <h1>The Story of Why Emo Ya Mbondo Kampala Started</h1>
+                <p>Explore the background history of emo ya mbondo, where every effort is made to deliver exceptional 
+                    quality and innovative solutions  that meet your needs and exceed your expectations</p>
+                <a href="donate.html" class="cta-button">Donate Now</a>
+            </div>
+
+            <div class="content-right-spacer">
+            </div>
+        </div>
+    </section>
+     
+
+    <!--another donate tag-->
+    <section class="dark-green-section">
+        <h1>Our Journey</h1>
+        <p>Established in 2019, Emo Ya Mbondo is the leading convener of African private sector leaders for social impact. We provide tailored solutions to the private sector, enabling them to tap into the African demographic dividend, including in vulnerable settings like displaced 
+            communities. We also empower the youth of Africa, including those in displaced communities, through strategic connections with the private sector to co-create breakthrough opportunities for all.</p>
+        </section>
+
+
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>About Us</h3>
+                    <p>Emo Ya Mbondo is a nonprofitable organization dedicated to creating lasting change in all Babondo
+                        communities through
+                        education, healthcare, and economic empowerment programs.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="homepage.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="homepage.html">Testimonies</a></li>
+                        <li><a href="Our-team.html">Our Team</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="donate.html">DONATE</a></li>
+
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Our Programs</h3>
+                    <ul class="footer-links">
+
+                        <li><a href="our-work.html">Education Initiatives</a></li>
+                        <li><a href="our-work.html">Healthcare Services</a></li>
+                        <li><a href="our-work.html">Clean Water Projects</a></li>
+                        <li><a href="our-work.html">Women's Empowerment</a></li>
+                        <li><a href="our-work.html">Disaster Relief</a></li>
+                        <li><a href="our-work.html">Sustainable Agriculture</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Emo Ya Mbondo Kampala. All Rights Reserved </a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+    <script>
+        //mobile navigation
+        const navSlide = () => {
+            const burger = document.querySelector('.burger');
+            const nav = document.querySelector('.nav-links');
+            const navLinks = document.querySelectorAll('.nav-links li');
+
+            burger.addEventListener('click', () => {
+                //toggle nav
+                nav.classList.toggle('nav-active');
+
+                //animate links
+                navLinks.forEach((link, index) => {
+                    if (link.style.animation) {
+                        link.style.animation = '';
+                    } else {
+                        link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                    }
+                });
+                //burger animation
+                burger.classList.toggle('toggle');
+            });
+        };
+
+        navSlide();
+        //add active class to current page
+        const navLinks = document.querySelectorAll('.nav-links li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.forEach(item => item.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        //scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+
+        // Show/hide back to top button based on scroll position
+        const backToTop = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+
+</html>

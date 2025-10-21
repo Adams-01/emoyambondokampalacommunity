@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <title>Emo ya Mbondo Kampala</title>
+    <style>
+        :root {
+            --primary-color: orangered;
+            --secondary-color: aliceblue;
+            --dark-color: rgb(5, 5, 5);
+            --light-color: #fefdfd;
+            --accent-color: #270801;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: transparent;
+            color: aliceblue;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
+            transition: all var(--transition-speed) ease;
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 5%;
+            background: rgba(50, 49, 49, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 2.9rem;
+            font-weight: 700;
+            background: linear-gradient(to right var(--accent-color));
+            /* -webkit-background-clip: text;*/
+            -webkit-text-fill-color: var(--secondary-color);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .span-tariff {
+            background-color: orangered;
+            color: var(--secondary-color);
+            text-align: center;
+            margin: 10px;
+            padding: 5px;
+            width: 50px;
+            height: 50px;
+            border: 4px solid aliceblue;
+        }
+
+        .span-tariff:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: 4px solid var(--primary-color);
+        }
+
+        img {
+            width: 100px;
+            height: auto;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links li a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            position: relative;
+            transition: all var(--transition-speed) ease;
+            border-radius: 4px;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width var(--transition-speed) ease;
+
+        }
+
+        .nav-links li a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links li a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-links li a.active::after {
+            width: 100%;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 5px;
+            transition: all 1.3s ease;
+            border-radius: 3px;
+
+        }
+
+        /* mobile style responsiveness*/
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: 0;
+                top: 0;
+                background: rgb(245, 184, 162);
+                width: 100%;
+                height: 100vh;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in-out;
+                backdrop-filter: blur(10px);
+                gap: 2rem;
+            }
+
+            .nav-links li {
+                opacity: 10px;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .hero h1 {
+                margin-top: 20px;
+            }
+
+            .hero p {
+                margin-top: 20px;
+            }
+        }
+
+        /*Active state*/
+        .nav-active {
+            transform: translateX(0%);
+
+        }
+
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+            background: var(--secondary-color);
+        }
+
+        .toggle .line2 {
+            opacity: 0;
+        }
+
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+            background: var(--secondary-color);
+        }
+
+
+        /*Animations*/
+        @keyframes navLinksFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+
+        /* Hero Section with Video Background */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            color: var(--primary-color);
+            background-size: cover;
+            background:
+                url('https://t4.ftcdn.net/jpg/05/89/56/35/240_F_589563519_qEvygN8sGxHgBiBcgFS87vHmVQIVA8HR.jpg'),
+                rgb(43, 43, 42);
+            background-blend-mode: multiply;
+            opacity: 75%;
+            background-attachment: fixed;
+            background-size: cover;
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+
+        }
+
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            z-index: -1;
+        }
+
+
+        .hero-content {
+            max-width: 600px;
+            margin-top: 20px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            position: relative;
+            font-size: 3.0rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            position: relative;
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #f4a261;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #f36c05;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background-color: var(--accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            .hero {
+                margin-top: -10px;
+                background-size: cover;
+                height: 120vh;
+                background-position: center;
+            }
+
+            .hero-content {
+                padding: 0 0.5rem;
+
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+                /* Reduce the font size of the hero heading for smaller screens */
+            }
+
+            .hero p {
+                font-size: 1rem;
+                /* Reduce the font size of the hero paragraph for smaller screens */
+            }
+
+            .btn-primary {
+                margin-top: 20px;
+            }
+            
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .section-about-background {
+            position: relative;
+            background: url(https://t4.ftcdn.net/jpg/02/82/51/57/240_F_282515716_AZHY7h6Qw3dxft0ZCF7khuVuQl6qiPYj.jpg);
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            color: var(--primary-color);
+        }
+
+        .learn-more-btn {
+            margin-top: 30px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+
+        /* Testimonials Section */
+        .section-title h2 {
+            color: var(--primary-color);
+        }
+
+        .section-background-tariff {
+            background-color: #270801;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            border: 4px solid orangered;
+            box-shadow: 0 5px 15px rgb(237, 65, 2);
+            margin: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        .testimonial.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .testimonial-text:before,
+        .testimonial-text:after {
+            content: '';
+            font-size: 3rem;
+            color: var(--accent-color);
+            opacity: 0.3;
+            position: absolute;
+        }
+
+        .testimonial-text:before {
+            top: -20px;
+            left: -10px;
+        }
+
+        .testimonial-text:after {
+            bottom: -40px;
+            right: -10px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+            border: 3px solid var(--primary-color);
+        }
+
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            margin-bottom: 0.3rem;
+            color: var(--primary-color);
+        }
+
+        .author-info p {
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        /* Team Section */
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .section-team-background {
+            position: relative;
+            background: url(https://t3.ftcdn.net/jpg/03/15/44/56/240_F_315445649_00DrF55vABpPacVw63X6Cqq00UWNMWqD.jpg);
+            background-size: cover;
+            background-attachment: fixed;
+
+        }
+
+        .section-title h2 {
+            color: var(--primary-color);
+        }
+
+        .team-member {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgb(237, 65, 2);
+        }
+
+        .member-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 1.5rem;
+        }
+
+        .member-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .member-info p {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+
+        }
+
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+        }
+
+
+
+        .btn-tariff {
+            color: var(--secondary-color);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 40px;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+        }
+
+        .btn-tariff:hover {
+            transform: translateY(-3px);
+
+        }
+
+
+
+
+
+
+
+
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-col p {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: white;
+            opacity: 0.8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            padding-left: 5px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--accent-color);
+        }
+
+        .footer-bottom p {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="emo.jpeg.png" alt="nav-logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#testimonials">Testimonies</a></li>
+            <li><a href="our-work.html">Our Work</a></li>
+            <li><a href="#team">Our Team</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="donate.html"><span class="span-tariff">DONATE</span></a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Emo 'Ya Mbondo</h1>
+            <p>We work tirelessly to provide essential resources, education, and support to vulnerable populations
+                around the world. Join us in making a difference today.</p>
+            <div>
+                <a href="donate.html" class="btn">Donate Now &rarr;</a>
+                <a href="#about" class="btn btn-primary">Learn More &#8595;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section-about-background">
+        <section id="about" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>About Emo</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Our Mission and Vision</h3>
+                        <p>Founded in 2015, Emo is a non-profitable Community that is dedicated to creating
+                            sustainable
+                            solutions for Babondo communities facing poverty, hunger, and lack of access to education.
+                            We
+                            believe that every individual deserves the opportunity to thrive, and we work towards this
+                            vision through comprehensive programs in education, healthcare, and economic empowerment.
+                        </p>
+                        <p>Our mission is to break the cycle of poverty by addressing its root causes. We partner with
+                            local communities to develop programs that are culturally sensitive and sustainable in the
+                            long term. Through our work, we've already impacted over 100,000 lives across 15 countries.
+                        </p>
+                        <p>We are proud to have earned a 4-star rating from Charity Navigator for our financial
+                            transparency and program effectiveness, ensuring that your donations are used to maximum
+                            impact.</p>
+                        <div class="learn-more-btn"> <a href="about.html" class="btn btn-primary">Learn More &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <img src="about.png" alt="emo-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+
+    <!-- Testimonials Section -->
+    <section class="section-background-tariff">
+        <section id="testimonials" class="testimonials section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Testimonies</h2>
+                </div>
+                <div class="testimonial-slider">
+                    <div class="testimonial active">
+                        <div class="testimonial-text">
+                            <p>Before Hope For All came to our village, my children had to walk 10 kilometers to reach
+                                the nearest school. Now, thanks to their school construction program, they receive
+                                quality education right here in our community.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="IMG_4219.jpeg" alt="">
+                            </div>
+                            <div class="author-info">
+                                <h4>Maria Gonzalez</h4>
+                                <p>Beneficiary, Guatemala</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-text">
+                            <p>The vocational training I received changed my life. I went from struggling to find work
+                                to running my own tailoring business, and now I can support my entire family. This
+                                program gave me more than skills—it gave me dignity.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="data:image/jpeg;base64,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" alt="">
+                            </div>
+                            <div class="author-info">
+                                <h4>Jules Asende</h4>
+                                <p>Vocational Graduate, Kenya</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial">
+                        <div class="testimonial-text">
+                            <p>The vocational training I received changed my life. I went from struggling to find work
+                                to running my own tailoring business, and now I can support my entire family. This
+                                program gave me more than skills—it gave me dignity.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="data:image/jpeg;base64,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" alt="">
+                            </div>
+                            <div class="author-info">
+                                <h4>Jules Asende</h4>
+                                <p>Vocational Graduate, Kenya</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="testimonial">
+                        <div class="testimonial-text">
+                            <p>As a donor, I'm continually impressed by how efficiently my contributions are used. The
+                                regular updates and transparency reports show exactly how my funds are making a
+                                difference, which keeps me coming back year after year.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="IMG_4219.jpeg" alt="">
+                            </div>
+                            <div class="author-info">
+                                <h4>Robert Chen</h4>
+                                <p>Major Donor, USA</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-controls">
+                        <div class="slider-dot active" data-slide="0"></div>
+                        <div class="slider-dot" data-slide="1"></div>
+                        <div class="slider-dot" data-slide="2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class=" btn-tariff">
+                <a href="our-work.html" class="btn">Discover More &rarr;</a>
+            </div>
+        </section>
+
+    </section>
+
+
+    <!-- Team Section -->
+    <section class="section-team-background">
+        <section id="team" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Meet Our Team</h2>
+                </div>
+                <div class="team-members">
+                    <!--member 1-->
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="president.jpg" alt="image">
+                        </div>
+                        <div class="member-info">
+                            <h3>Jules Asende</h3>
+                            <p>President</p>
+                            <p>“Throughout my journey as a refugee and even now, countless individuals have touched my
+                                 others to overcome adversity and thrive.”</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--member 2-->
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="vice.png" alt="image">
+                        </div>
+                        <div class="member-info">
+                            <h3>Jules Asende</h3>
+                            <p>Vice President</p>
+                            <p>“Twenty years as a refugee, taught me that behind every statistic, is a human story
+                                .”</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--member 3-->
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="Youth P.jpg" alt="image">
+                        </div>
+                        <div class="member-info">
+                            <h3>Jules Asende</h3>
+                            <p>Youth President</p>
+                            <p>“Twenty years as a refugee, taught me that behind every statistic, is a human story
+                                .”</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" btn-tariff">
+                    <a href="Our-team.html" t class="btn">See More &rarr;</a>
+                </div>
+        </section>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>About Us</h3>
+                    <p>Emo Ya Mbondo is a nonprofitable Community dedicated to creating lasting change in all Babondo
+                        communities through
+                        education, healthcare, and economic empowerment programs.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href=""><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#testimonials">Testimonies</a></li>
+                        <li><a href="#team">Our Team</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="donate.html">DONATE</a></li>
+
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Our Programs</h3>
+                    <ul class="footer-links">
+                        <li><a href="our-work.html">Education Initiatives</a></li>
+                        <li><a href="our-work.html">Healthcare Services</a></li>
+                        <li><a href="our-work.html">Clean Water Projects</a></li>
+                        <li><a href="our-work.html">Women's Empowerment</a></li>
+                        <li><a href="our-work.html">Disaster Relief</a></li>
+                        <li><a href="our-work.html">Sustainable Agriculture</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Emo Ya Mbondo Kampala. All Rights Reserved </a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+
+    <script>
+        //mobile navigation
+        const navSlide = () => {
+            const burger = document.querySelector('.burger');
+            const nav = document.querySelector('.nav-links');
+            const navLinks = document.querySelectorAll('.nav-links li');
+
+            burger.addEventListener('click', () => {
+                //toggle nav
+                nav.classList.toggle('nav-active');
+
+                //animate links
+                navLinks.forEach((link, index) => {
+                    if (link.style.animation) {
+                        link.style.animation = '';
+                    } else {
+                        link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                    }
+                });
+                //burger animation
+                burger.classList.toggle('toggle');
+            });
+        };
+
+        navSlide();
+        //add active class to current page
+        const navLinks = document.querySelectorAll('.nav-links li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.forEach(item => item.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        //scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Testimonial Slider
+        const testimonials = document.querySelectorAll('.testimonial');
+        const dots = document.querySelectorAll('.slider-dot');
+        let currentTestimonial = 0;
+
+        function showTestimonial(index) {
+            testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            testimonials[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentTestimonial = index;
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => showTestimonial(index));
+        });
+
+        // Auto-advance testimonials
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, 8000);
+
+        // Show/hide back to top button based on scroll position
+        const backToTop = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+
+    </script>
+</body>
+
+</html>
